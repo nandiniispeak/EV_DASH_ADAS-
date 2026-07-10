@@ -23,9 +23,11 @@
 #include "common.h"
 #include "ev_control.h"
 #include "ultrasonic.h"
+#include "adas.h"
 
 
 EV_HandleTypeDef ev;
+ADAS_HandleTypeDef adas;
 
 
 
@@ -96,6 +98,7 @@ int main(void)
 
       EV_Init(&ev); // ev
       HCSR04_Init(); // ultrasonic sensor
+      ADAS_Init(&adas); // inital l r f -->400cm
 
 
 
@@ -117,7 +120,7 @@ int main(void)
 	          EV_Update(&ev, 0.01f);   /* dt = 10ms */
 
 	          /* Print every 1000ms (every 10 EV ticks) */
-	          if (++ev_div >= 100) {
+	          if (++ev_div >= 10) {
 	              ev_div = 0;
 
 	              /* Split floats into integer + decimal parts */
@@ -150,12 +153,23 @@ int main(void)
 	      {
 	    	  sensor_flag =0;
 	    	  HCSR04_ReadAll();
-	    	  int front_distance = (int) HCSR04_GetDistance(0);
-	    	  int left_distance = (int) HCSR04_GetDistance(1);
-	    	  int right_distance = (int) HCSR04_GetDistance(2);
 
-	    	  char msg[60];
-	    	  sprintf(msg, "F:%d L:%d R:%d cm\r\n",front_distance,left_distance,right_distance);
+	    	  // update TTC, alarm, BSD
+	    	  ADAS_Update( &adas, &ev);
+
+	    	  // convert them to integer
+	    	  int ttcs = (int)adas. ttc_sec;
+	    	  int ttcd = (int)( adas. ttc_sec * 10.0f) % 10;
+	    	  int frnt = (int)adas.front_cm;
+	    	  int left = (int)adas.left_cm;
+	    	  int right= (int)adas.right_cm;
+
+	    	  char msg[100];
+	    	  sprintf(msg, "F:%d L:%d R:%d  TTC:%d.%ds COL:%d BSD:%d%d  ALM:%d \r\n",   frnt, left, right,
+	    			  ttcs, ttcd,
+	    			  adas.collision_warn,
+					  adas.blindspot_left, adas.blindspot_right,
+					  (int)adas.alarm_priority);
 	    	  HAL_UART_Transmit(&huart1, (uint8_t*)msg, strlen(msg), 100);
 
 	    	  // read hrsc data and print it

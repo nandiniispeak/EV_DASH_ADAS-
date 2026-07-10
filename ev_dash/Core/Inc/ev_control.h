@@ -35,12 +35,12 @@ typedef struct {
 #define EV_REGEN_THRESHOLD_PCT    5.0f
 #define EV_BATTERY_CAPACITY_KWH  60.0f
 #define EV_MASS_FACTOR         1500.0f
-#define EV_MAX_SPEED_KMH        200.0f
+#define EV_MAX_SPEED_KMH        20.0f
 #define EV_MAX_MOTOR_TEMP_C      90.0f
 #define EV_FAULT_SOC_PCT          2.0f
 #define EV_DRAG_COEFF             2.0f
 
-#define EV_SIM_SCALE        50.0f
+#define EV_SIM_SCALE        500.0f
 
 /* Efficiency Wh/km per mode */
 #define EV_EFFICIENCY_ECO    14.0f
