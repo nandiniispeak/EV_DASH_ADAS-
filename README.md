@@ -75,6 +75,7 @@ $$\text{Time-to-Collision (s)} = \frac{\text{Front Distance (m)}}{\text{Speed (m
 
 $$\text{Emergency State} = \begin{cases} 
 \text{ACTIVE (EBA Enabled),} & \text{if } \text{TTC} \le \text{Threshold}_{\text{critical}} 
+
       \text{WARNING (FCW Alert),} & \text{if } \text{Threshold}_{\text{critical}} < \text{TTC} \le \text{Threshold}_{\text{warning}} \\
       \text{SAFE,} & \text{if } \text{TTC} > \text{Threshold}_{\text{warning}}
       \end{cases}$$
