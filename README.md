@@ -1,6 +1,9 @@
 # EV Dashboard & Multi-Directional ADAS Controller (STM32F103C8t6)
 
-A firmware implementation for an Electric Vehicle (EV) telemetry dashboard integrated with Multi-Directional Advanced Driver Assistance Systems (ADAS), designed for the STM32F103C8t6 (Blue Pill) microcontroller. This system samples real-time signals from dashboard inputs while simultaneously processing spatial proximity data using high-precision HC-SR04 ultrasonic sensor networks (Forward, Left, and Right channels). It dynamically computes metrics such as vehicle speed, remaining range, and multi-directional collision risks, streaming structured telemetry and active safety alerts via USART to a terminal screen interface.
+A firmware implementation for an Electric Vehicle (EV) telemetry dashboard integrated with Multi-Directional Advanced Driver Assistance Systems (ADAS), designed 
+for the STM32F103C8t6 (Blue Pill) microcontroller. This system samples real-time signals from dashboard inputs while simultaneously processing spatial proximity 
+data using high-precision HC-SR04 ultrasonic sensor networks (Forward, Left, and Right channels). It dynamically computes metrics such as vehicle speed, remaining 
+range, and multi-directional collision risks, streaming structured telemetry and active safety alerts via USART to a terminal screen interface.
 
 ---
 ## 🚀 Features
@@ -10,13 +13,14 @@ A firmware implementation for an Electric Vehicle (EV) telemetry dashboard integ
 * **Input Capture Processing:** Tracks wheel rotation encoder frequency signals via timer capture registers to establish exact ground speed.
 * **Regenerative Braking Support:** Automatically computes negative torque adjustments when the braking system is active.
 * **Stable Serial Telemetry Engine:** Transmits structured parameter lines formatted for real-time VT100 virtual terminals.
-  
+* 
 ### 🛡️ Integrated Multi-Directional ADAS Features
 * **Forward Collision Warning (FCW):** Tracks forward distance via ultrasonic hardware timers to calculate Time-to-Collision (TTC) based on ground speed, triggering dynamic visual warning thresholds.
 * **Emergency Brake Assist (EBA):** Overrides manual throttle configurations and injects emergency braking demands if a critical forward hazard threshold is breached.
 * **Lateral Blind-Spot Monitoring (Left & Right):** Continuous digital triggering and echo-pulse capturing scan left/right lanes to flag immediate spatial overtaking hazards with integrated speed-gate validation filters.
 * **Hysteresis Software Filtering:** Processes raw timer clock ticks through software noise filters to minimize false-positive safety flags caused by component tolerances or environmental drift.
 ---
+
 ## 🛠️ Hardware & Pin Configuration
 The system architecture maps inputs and outputs to specific peripherals on the **STM32F103C8t6** chip:
 
@@ -58,12 +62,10 @@ The Input Capture timer evaluates elapsed timer counts between signal edges to d
 $$f = \frac{\text{Timer Clock Frequency (Hz)}}{\text{Captured Ticks}}$$
 
 $$\text{Speed (km/h)} = f \times \text{Wheel Calibration Constant}$$
-
 ### 5. Ultrasonic Distance Formula (Echo Pulse Width)
 To calculate distance ($D$) from the HC-SR04 sensors, the Input Capture timer tracks the time the Echo pin remains high ($\text{Ticks}_{\text{echo}}$) at a given 
 
 Timer Clock Frequency:
-
 $$\text{Time (s)} = \frac{\text{Ticks}_{\text{echo}}}{\text{Timer Clock Frequency (Hz)}}$$
 
 $$\text{Distance (cm)} = \frac{\text{Time (s)} \times 34300 \text{ cm/s}}{2}$$
@@ -73,9 +75,10 @@ The forward collision avoidance framework computes real-time proximity degradati
 
 $$\text{Time-to-Collision (s)} = \frac{\text{Front Distance (m)}}{\text{Speed (m/s)}}$$
 $$\text{Emergency State} = \begin{cases} 
-    \text{ACTIVE (EBA Enabled),} & \text{if } \text{TTC} \le \text{Threshold}_{\text{critical}} \text{WARNING (FCW Alert),} & \text{if } \text{Threshold}_{\text{critical}} < \text{TTC} \le \text{Threshold}_{\text{warning}} \\
+      \text{ACTIVE (EBA Enabled),} & \text{if } \text{TTC} \le \text{Threshold}_{\text{critical}} \\
+      \text{WARNING (FCW Alert),} & \text{if } \text{Threshold}_{\text{critical}} < \text{TTC} \le \text{Threshold}_{\text{warning}} \\
       \text{SAFE,} & \text{if } \text{TTC} > \text{Threshold}_{\text{warning}}
-      \end{cases}$$
+   \end{cases}$$
    
 ### 7. Side Blind-Spot Hazard Assessment
 
@@ -86,9 +89,7 @@ $$\text{Left Hazard State} = \begin{cases} 1, & \text{if } D_{\text{left}} \le \
 $$\text{Right Hazard State} = \begin{cases} 1, & \text{if } D_{\text{right}} \le \text{Threshold}_{\text{lateral}} \ \ \text{AND} \ \ V_{\text{vehicle}} > V_{\text{gate}} \\ 0, & \text{otherwise} \end{cases}$$
 
 ---
-
-## 💻 Simulation 
-This project is fully optimized for verification using the **PICSimLab** simulation suite.
+## 💻 Simulation
 1. Build the source workspace inside **STM32CubeIDE** (`Ctrl + B`) to generate a compiled `.bin` or `.hex` file.
 2. Launch **PICSimLab** and load your custom board configuration workspace.
 3. Select **File -> Load Hex/Bin** and direct it to the binary inside your project's `Debug` directory.
