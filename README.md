@@ -74,7 +74,7 @@ The forward collision avoidance framework computes real-time proximity degradati
 $$\text{Time-to-Collision (s)} = \frac{\text{Front Distance (m)}}{\text{Speed (m/s)}}$$
 
 $$\text{Emergency State} = \begin{cases} 
-      \text{ACTIVE (EBA Enabled),} & \text{if } \text{TTC} \le \text{Threshold}_{\text{critical}} 
+\text{ACTIVE (EBA Enabled),} & \text{if } \text{TTC} \le \text{Threshold}_{\text{critical}} 
       \text{WARNING (FCW Alert),} & \text{if } \text{Threshold}_{\text{critical}} < \text{TTC} \le \text{Threshold}_{\text{warning}} \\
       \text{SAFE,} & \text{if } \text{TTC} > \text{Threshold}_{\text{warning}}
       \end{cases}$$
@@ -89,7 +89,7 @@ $$\text{Right Hazard State} = \begin{cases} 1, & \text{if } D_{\text{right}} \le
 
 ---
 
-## 💻 Simulation & Deployment Guide
+## 💻 Simulation 
 This project is fully optimized for verification using the **PICSimLab** simulation suite.
 1. Build the source workspace inside **STM32CubeIDE** (`Ctrl + B`) to generate a compiled `.bin` or `.hex` file.
 2. Launch **PICSimLab** and load your custom board configuration workspace.
