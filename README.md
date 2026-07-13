@@ -20,20 +20,15 @@ A firmware implementation for an Electric Vehicle (EV) telemetry dashboard integ
 
 ## 📊 Project Workspace Preview
 
-### 1. PICSimLab Simulation & Inputs
-Below is the virtual simulation interface displaying the active potentiometer controls (handling Accelerator, Brake, SOC, and Temperature) alongside the ultrasonic sensor grid:
+### 1. PICSimLab Simulation Layout
+Below is the virtual simulation workspace displaying the interactive potentiometer controls (for Accelerator, Brake, SOC, and Temperature), the HC-SR04 ultrasonic sensor grid, the LED status indicators, and the live virtual terminal tracking output frames:
 
-![PICSimLab Hardware Setup](dashboard/picsimlab_setup.png)
+![PICSimLab Hardware Setup](picsimlab_Setup.png.png)
 
 ### 2. Live Python Telemetry Interface
-This custom desktop dashboard establishes a high-speed serial link with the controller to process telemetry packages dynamically from your running `ev.py` script:
+The custom desktop GUI dashboard establishing a high-speed serial link with the microcontroller simulation to process and visualize telemetry packages dynamically:
 
-![Python UI Dashboard View](dashboard/python_dashboard.png)
-
-### 3. Hardware Display Reference
-An example reference layout for the physical EV dashboard telemetry interface showcasing speed metrics, gear placement, sensor limits, and peripheral warning indicators:
-
-![Hardware Dashboard Reference](dashboard/hardware_Dash.png)
+![Python UI Dashboard View](python_dashboard.png.png)
 ---
 
 ## 🔌 Hardware & Pin Configuration
